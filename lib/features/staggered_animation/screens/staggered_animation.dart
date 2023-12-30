@@ -41,7 +41,21 @@ class _StaggeredAnimationScreenState extends State<StaggeredAnimationScreen> {
                   color: const Color(0xff929292)),),
             ),
             const SizedBox(height: 20,),
-            const RequestItem()
+            Expanded(
+
+              child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 8.0,
+                    mainAxisSpacing: 8.0,
+                  ),
+                  itemCount: requestList.length,
+                  itemBuilder: (context, index){
+                    final rL = requestList[index];
+                    return RequestItemCard(model: rL);
+                  }
+              ),
+            )
           ],
         ),
       ),

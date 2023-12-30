@@ -1,2 +1,2 @@
-# flutter_micro_interactions
+# Micro Interactions in Flutter
 

@@ -30,6 +30,7 @@ class RequestItemCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SvgPicture.asset(model.iconPath,
+                  width: 20,
                   colorFilter: const ColorFilter.mode(
                     Color(0xff3b937e),
                     BlendMode.srcIn,

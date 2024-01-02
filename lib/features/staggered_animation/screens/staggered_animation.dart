@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_micro_interactions/features/features.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 
 class StaggeredAnimationScreen extends StatefulWidget {
@@ -11,52 +11,51 @@ class StaggeredAnimationScreen extends StatefulWidget {
 }
 
 class _StaggeredAnimationScreenState extends State<StaggeredAnimationScreen> {
+  final controller = PageController(keepPage: true);
+
+  final List<Widget> pages = [
+    const RequestScreen(),
+    const MakeRequestScreen(),
+    Container()
+  ];
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff181818),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 20,),
-            Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                onPressed: () {  },
-                icon: const Icon(CupertinoIcons.arrow_right, color: Color(0xffededed),),
-              ),
-            ),
-            const SizedBox(height: 50,),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text('Requests', style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                  color: const Color(0xffededed)),),
-            ),
-            const SizedBox(height: 50,),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text('In progress', style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: const Color(0xff929292)),),
-            ),
-            const SizedBox(height: 20,),
-            Expanded(
+      body: PageView(
+        controller: controller,
+        children: [
+          ...pages,
+        ],
 
-              child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 8.0,
-                    mainAxisSpacing: 8.0,
-                  ),
-                  itemCount: requestList.length,
-                  itemBuilder: (context, index){
-                    final rL = requestList[index];
-                    return RequestItemCard(model: rL);
-                  }
-              ),
-            )
-          ],
+      ),
+      bottomNavigationBar: Container(
+        alignment: Alignment.topCenter,
+        padding: const EdgeInsets.only(top: 10),
+        height: 30,
+        decoration: const BoxDecoration(
+          color: Color(0xff181818),
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xff181818),
+              spreadRadius: 30,
+              blurRadius: 70,
+              //offset: const Offset(0, 2),
+            ),
+          ]
+        ),
+        child: SmoothPageIndicator(
+          controller: controller,
+          count: 3,
+          effect: const ExpandingDotsEffect(
+            expansionFactor: 5,
+            dotHeight: 4,
+            dotWidth: 8,
+            activeDotColor: Colors.white,
+            dotColor: Color(0xff929292),
+          ),
         ),
       ),
     );

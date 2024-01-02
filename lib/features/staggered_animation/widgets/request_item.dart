@@ -12,6 +12,9 @@ final requestList = [
   RequestItem(iconPath: 'assets/images/gift.svg', title: "Sam's Graduation Gift", isCompleted: true),
   RequestItem(iconPath: 'assets/images/home.svg', title: 'Summer house in the hampton', isCompleted: true),
   RequestItem(iconPath: 'assets/images/ring.svg', title: "Dan and Meg's wedding in October", isCompleted: true),
-  RequestItem(iconPath: 'assets/images/shopping-bag.svg', title: "Drycleaner's work", isCompleted: true),
+  RequestItem(iconPath: 'assets/images/shopping-bag.svg', title: "Pick up Tux from DryCleaners", isCompleted: true),
 
 ];
+
+List <RequestItem> inProgressList = requestList.where((item) => item.isCompleted == false).toList();
+List <RequestItem> completeList = requestList.where((item) => item.isCompleted == true).toList();

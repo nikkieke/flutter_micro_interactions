@@ -14,6 +14,7 @@ dependencies:
   percent_indicator: ^4.2.3
   flutter_svg: ^2.0.9
   smooth_page_indicator: ^1.1.0
+  rive: ^0.12.4
 
 dev_dependencies:
   flutter_test:

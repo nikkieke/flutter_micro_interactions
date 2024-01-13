@@ -31,7 +31,12 @@ class RequestItemCard extends StatelessWidget {
               children: [
                 SvgPicture.asset(model.iconPath,
                   width: 20,
-                  colorFilter: const ColorFilter.mode(
+                  colorFilter: model.isCompleted?
+                  const ColorFilter.mode(
+                     Color(0xff929292),
+                    BlendMode.srcIn,
+                  ):
+                  const ColorFilter.mode(
                     Color(0xff3b937e),
                     BlendMode.srcIn,
                   ),

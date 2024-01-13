@@ -12,12 +12,20 @@ class StaggeredAnimationScreen extends StatefulWidget {
 
 class _StaggeredAnimationScreenState extends State<StaggeredAnimationScreen> {
   final controller = PageController(keepPage: true);
+  double? currentPage = 0;
+
 
   final List<Widget> pages = [
     const RequestScreen(),
     const MakeRequestScreen(),
     Container()
   ];
+
+  @override
+  void initState() {
+    currentPage = controller.page;
+    super.initState();
+  }
 
 
   @override
@@ -35,11 +43,11 @@ class _StaggeredAnimationScreenState extends State<StaggeredAnimationScreen> {
         alignment: Alignment.topCenter,
         padding: const EdgeInsets.only(top: 10),
         height: 30,
-        decoration: const BoxDecoration(
-          color: Color(0xff181818),
+        decoration:  BoxDecoration(
+          color: currentPage==1? const Color(0xff1f1f1f):const Color(0xff181818),
           boxShadow: [
             BoxShadow(
-              color: Color(0xff181818),
+              color: currentPage==1? const Color(0xff1f1f1f):const Color(0xff181818),
               spreadRadius: 30,
               blurRadius: 70,
               //offset: const Offset(0, 2),

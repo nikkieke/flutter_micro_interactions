@@ -20,6 +20,18 @@ class _StaggeredAnimationScreenState extends State<StaggeredAnimationScreen> {
     Container()
   ];
 
+  int currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(() {
+      setState(() {
+        currentPage = controller.page!.round();
+      });
+    });
+  }
+
 
 
 
@@ -39,15 +51,12 @@ class _StaggeredAnimationScreenState extends State<StaggeredAnimationScreen> {
         padding: const EdgeInsets.only(top: 10),
         height: 30,
         decoration:  BoxDecoration(
-          color: controller.hasClients ? controller.page==1? const Color(0xff1f1f1f):const Color(0xff181818):
-          const Color(0xff181818),
+          color: currentPage==1? const Color(0xff1f1f1f):const Color(0xff181818),
           boxShadow: [
             BoxShadow(
-              color: controller.hasClients ? controller.page==1? const Color(0xff1f1f1f):const Color(0xff181818):
-              const Color(0xff181818),
+              color: currentPage==1? const Color(0xff1f1f1f):const Color(0xff181818),
               spreadRadius: 30,
               blurRadius: 70,
-              //offset: const Offset(0, 2),
             ),
           ]
         ),

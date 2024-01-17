@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_micro_interactions/features/features.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:flutter_micro_interactions/utils/utils.dart';
 
 
 class StaggeredAnimationScreen extends StatefulWidget {
@@ -10,7 +11,10 @@ class StaggeredAnimationScreen extends StatefulWidget {
   State<StaggeredAnimationScreen> createState() => _StaggeredAnimationScreenState();
 }
 
-class _StaggeredAnimationScreenState extends State<StaggeredAnimationScreen> {
+class _StaggeredAnimationScreenState extends State<StaggeredAnimationScreen> with AutomaticKeepAliveClientMixin{
+  @override
+  bool get wantKeepAlive => true;
+
   final controller = PageController(keepPage: true);
 
 
@@ -32,15 +36,26 @@ class _StaggeredAnimationScreenState extends State<StaggeredAnimationScreen> {
     });
   }
 
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
 
 
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       backgroundColor: const Color(0xff181818),
       body: PageView(
         controller: controller,
+        // onPageChanged: (currentPage) => controller.animateToPage(currentPage,
+        //     duration: const Duration(milliseconds: 200),
+        //     curve: Curves.linearToEaseOut),
+        physics: const CustomPageViewScrollPhysics(),
         children: [
           ...pages,
         ],

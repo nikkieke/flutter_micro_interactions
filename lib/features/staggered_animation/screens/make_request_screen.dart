@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rive/rive.dart';
+import 'package:flutter_micro_interactions/features/features.dart';
+
 
 class MakeRequestScreen extends StatefulWidget {
   const MakeRequestScreen({Key? key}) : super(key: key);
@@ -13,6 +15,30 @@ class _MakeRequestScreenState extends State<MakeRequestScreen> {
   TextEditingController textCtr = TextEditingController();
   StateMachineController? controller;
   SMIBool? input;
+  bool isSpeechOn = false;
+  bool textSpeechDefault = true;
+  bool hideButton = false;
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(_handleFocusChange);
+  }
+
+  void _handleFocusChange() {
+    if (!_focusNode.hasFocus) {
+      setState(() {
+        hideButton = false;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +86,6 @@ class _MakeRequestScreenState extends State<MakeRequestScreen> {
                     ),
                   ],
                 ),
-
                 const SizedBox(
                   height: 40,
                 ),
@@ -110,84 +135,56 @@ class _MakeRequestScreenState extends State<MakeRequestScreen> {
                   ),
                 ),
                 const Spacer(),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      width: double.maxFinite,
-                      height: 250,
-                      color: const Color(0xff1f1f1f),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextField(
-                            controller: textCtr,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Start typing or speaking",
-                              hintStyle: TextStyle(color: Color(0xff929292)),
-                            ),
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white),
-                            onChanged: (value) {},
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            height: 100,
-                            width: double.maxFinite,
-                            child: RiveAnimation.asset(
-                              "assets/images/voice_assistant_animation.riv",
-                              //fit: BoxFit.fitHeight,
-                              stateMachines: const ["Login State Machine"],
-                              artboard: 'compose',
-                              onInit: (artboard) {
-                                controller = StateMachineController.fromArtboard(
-                                  artboard,
-                                  "State Machine 1",
-                                );
-                                if (controller == null) return;
-                                artboard.addController(controller!);
-                                input = controller?.findSMI("isActive") as SMIBool;
+                TextSpeechWidget(
+                  focusNode: _focusNode,
+                  isSpeechOn: isSpeechOn,
+                  textCtr: textCtr,
+                  riveAnimation: RiveAnimation.asset(
+                    "assets/images/voice_assistant_animation.riv",
+                    //fit: BoxFit.fitHeight,
+                    stateMachines: const ["Login State Machine"],
+                    artboard: 'compose',
+                    onInit: (artboard) {
+                      controller = StateMachineController.fromArtboard(
+                        artboard,
+                        "State Machine 1",
+                      );
+                      if (controller == null) return;
+                      artboard.addController(controller!);
+                      input = controller?.findSMI("isActive") as SMIBool;
 
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    },
                   ),
-                )
+                  tapped: () {
+                    setState(() {
+                      isSpeechOn = false;
+                      textSpeechDefault = false;
+                      hideButton = true;
+                    });
+                  },
+                ),
               ],
             ),
-            Positioned(
-              //top: 10,
-              bottom: 170,
-              left: 0,
-              right: -250,
-              child: TextButton(
-                onPressed: (){
-                  input?.change(true);
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(15),
-                  height: 50,
-                  decoration: const ShapeDecoration(
-                      shape: CircleBorder(),
-                      color: Color(0xff303030)
-                  ),
-                  child: SvgPicture.asset('assets/images/mic.svg',
-                    width: 20,
-                    colorFilter: const ColorFilter.mode(
-                      Color(0xff929292),
-                      BlendMode.srcIn,
-                    )
-                  ),
-                ),
-              ),
+            hideButton?
+            Container():
+            TextSpeechButton(
+              keyboardTapped: (){
+                setState(() {
+                  isSpeechOn = false;
+                  textSpeechDefault = false;
+                });
+              },
+              micTapped: (){
+              input?.change(true);
+              Future.delayed(const Duration(seconds: 5), () {
+                input!.change(false);
+              });
+              setState(() {
+                isSpeechOn = true;
+                textSpeechDefault = false;
+              });
+            },
+              isSpeechOn: isSpeechOn,
             ),
           ],
         ),
@@ -197,3 +194,6 @@ class _MakeRequestScreenState extends State<MakeRequestScreen> {
     );
   }
 }
+
+
+

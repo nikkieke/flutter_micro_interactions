@@ -41,17 +41,22 @@ class _RequestScreenState extends State<RequestScreen> {
             ),
             const SizedBox(height: 20,),
             Expanded(
-              child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                  ),
-                  itemCount: inProgressList.length,
-                  itemBuilder: (context, index){
-                    final pL = inProgressList[index];
-                    return RequestItemCard(model: pL);
-                  }
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder:(context)=> const RequestDetailScreen()));
+                },
+                child: GridView.builder(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
+                    ),
+                    itemCount: inProgressList.length,
+                    itemBuilder: (context, index){
+                      final pL = inProgressList[index];
+                      return RequestItemCard(model: pL);
+                    }
+                ),
               ),
             ),
             const SizedBox(height: 40,),

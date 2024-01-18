@@ -37,6 +37,7 @@ class _MakeRequestScreenState extends State<MakeRequestScreen> {
   @override
   void dispose() {
     _focusNode.dispose();
+    textCtr.dispose();
     super.dispose();
   }
 

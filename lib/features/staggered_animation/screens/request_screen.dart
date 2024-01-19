@@ -40,22 +40,28 @@ class _RequestScreenState extends State<RequestScreen> {
                   color: const Color(0xff929292)),),
             ),
             const SizedBox(height: 20,),
-            Expanded(
-              child: GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder:(context)=> const RequestDetailScreen()));
-                },
-                child: GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 12,
-                    ),
-                    itemCount: inProgressList.length,
-                    itemBuilder: (context, index){
-                      final pL = inProgressList[index];
-                      return RequestItemCard(model: pL);
-                    }
+            AnimationExecutor(
+              horizontalOffset: MediaQuery.of(context).size.width / 2,
+              verticalOffset: 0.0,
+              begin: 0,
+              end: 0.5,
+              child: Expanded(
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder:(context)=> const RequestDetailScreen()));
+                  },
+                  child: GridView.builder(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 12,
+                        mainAxisSpacing: 12,
+                      ),
+                      itemCount: inProgressList.length,
+                      itemBuilder: (context, index){
+                        final pL = inProgressList[index];
+                        return RequestItemCard(model: pL);
+                      }
+                  ),
                 ),
               ),
             ),

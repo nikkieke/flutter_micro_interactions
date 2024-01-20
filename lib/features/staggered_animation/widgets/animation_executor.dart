@@ -4,7 +4,7 @@ class AnimationExecutor extends StatefulWidget {
   const AnimationExecutor({super.key,
     required this.child,
     required this.horizontalOffset,
-    required this.verticalOffset, required this.begin, required this.end});
+    required this.verticalOffset, required this.begin, required this.end, required this.animationStart,});
 
   final Widget child;
 
@@ -15,6 +15,8 @@ class AnimationExecutor extends StatefulWidget {
   final double begin;
 
   final double end;
+
+  final bool animationStart;
 
   @override
   State<AnimationExecutor> createState() => _AnimationExecutorState();
@@ -28,8 +30,18 @@ class _AnimationExecutorState extends State<AnimationExecutor> with SingleTicker
     _animationController = AnimationController(
         vsync: this,
       duration: const Duration(seconds: 4),
-    )..forward();
+    );
+    startAnimation();
+
   }
+
+  void startAnimation(){
+    if(widget.animationStart == true){
+      _animationController.forward();
+    }
+  }
+
+
 
   @override
   void dispose() {

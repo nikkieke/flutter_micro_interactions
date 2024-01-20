@@ -3,13 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_micro_interactions/features/features.dart';
 
 class RequestScreen extends StatefulWidget {
-  const RequestScreen({Key? key}) : super(key: key);
+  const RequestScreen({Key? key,}) : super(key: key);
+
 
   @override
   State<RequestScreen> createState() => _RequestScreenState();
 }
 
 class _RequestScreenState extends State<RequestScreen> {
+   bool start = false;
+  @override
+  void initState() {
+    print('rebuilt');
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,15 +31,28 @@ class _RequestScreenState extends State<RequestScreen> {
             Align(
               alignment: Alignment.topRight,
               child: IconButton(
-                onPressed: () {  },
+                onPressed: () {
+                  setState(() {
+                    start = true;
+                  });
+                  print('here');
+
+                },
                 icon: const Icon(CupertinoIcons.arrow_right, color: Color(0xffededed),),
               ),
             ),
             const SizedBox(height: 50,),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text('Requests', style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                  color: const Color(0xffededed)),),
+            AnimationExecutor(
+              horizontalOffset: MediaQuery.of(context).size.width / 3,
+              verticalOffset: 0.0,
+              begin: 0,
+              end: 0.5,
+              animationStart: start,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Text('Requests', style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                    color: const Color(0xffededed)),),
+              ),
             ),
             const SizedBox(height: 40,),
             Padding(
@@ -40,28 +61,24 @@ class _RequestScreenState extends State<RequestScreen> {
                   color: const Color(0xff929292)),),
             ),
             const SizedBox(height: 20,),
-            AnimationExecutor(
-              horizontalOffset: MediaQuery.of(context).size.width / 2,
-              verticalOffset: 0.0,
-              begin: 0,
-              end: 0.5,
-              child: Expanded(
-                child: GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder:(context)=> const RequestDetailScreen()));
-                  },
-                  child: GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 12,
-                        mainAxisSpacing: 12,
-                      ),
-                      itemCount: inProgressList.length,
-                      itemBuilder: (context, index){
-                        final pL = inProgressList[index];
-                        return RequestItemCard(model: pL);
-                      }
-                  ),
+            SizedBox(
+              height: 200,
+              width: double.maxFinite,
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder:(context)=> const RequestDetailScreen()));
+                },
+                child: GridView.builder(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
+                    ),
+                    itemCount: inProgressList.length,
+                    itemBuilder: (context, index){
+                      final pL = inProgressList[index];
+                      return RequestItemCard(model: pL);
+                    }
                 ),
               ),
             ),

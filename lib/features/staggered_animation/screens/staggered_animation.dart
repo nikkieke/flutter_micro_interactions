@@ -29,6 +29,8 @@ class _StaggeredAnimationScreenState extends State<StaggeredAnimationScreen> wit
   @override
   void initState() {
     super.initState();
+    print('main rebuild');
+
     controller.addListener(() {
       setState(() {
         currentPage = controller.page!.round();
@@ -52,9 +54,9 @@ class _StaggeredAnimationScreenState extends State<StaggeredAnimationScreen> wit
       backgroundColor: const Color(0xff181818),
       body: PageView(
         controller: controller,
-        // onPageChanged: (currentPage) => controller.animateToPage(currentPage,
-        //     duration: const Duration(milliseconds: 200),
-        //     curve: Curves.linearToEaseOut),
+        onPageChanged: (currentPage) {
+
+        },
         physics: const CustomPageViewScrollPhysics(),
         children: [
           ...pages,

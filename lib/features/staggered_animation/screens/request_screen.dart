@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_micro_interactions/features/features.dart';
 
 class RequestScreen extends StatefulWidget {
-  const RequestScreen({Key? key,}) : super(key: key);
+  const RequestScreen({Key? key, required this.animationController,}) : super(key: key);
+
+  final AnimationController animationController;
 
 
   @override
@@ -11,13 +13,8 @@ class RequestScreen extends StatefulWidget {
 }
 
 class _RequestScreenState extends State<RequestScreen> {
-   bool start = false;
-  @override
-  void initState() {
-    print('rebuilt');
 
-    super.initState();
-  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,27 +29,16 @@ class _RequestScreenState extends State<RequestScreen> {
               alignment: Alignment.topRight,
               child: IconButton(
                 onPressed: () {
-                  setState(() {
-                    start = true;
-                  });
-                  print('here');
 
                 },
                 icon: const Icon(CupertinoIcons.arrow_right, color: Color(0xffededed),),
               ),
             ),
             const SizedBox(height: 50,),
-            AnimationExecutor(
-              horizontalOffset: MediaQuery.of(context).size.width / 3,
-              verticalOffset: 0.0,
-              begin: 0,
-              end: 0.5,
-              animationStart: start,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Text('Requests', style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                    color: const Color(0xffededed)),),
-              ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text('Requests', style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                  color: const Color(0xffededed)),),
             ),
             const SizedBox(height: 40,),
             Padding(
@@ -66,7 +52,7 @@ class _RequestScreenState extends State<RequestScreen> {
               width: double.maxFinite,
               child: GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder:(context)=> const RequestDetailScreen()));
+                  Navigator.of(context).push(createRoute());
                 },
                 child: GridView.builder(
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -77,7 +63,14 @@ class _RequestScreenState extends State<RequestScreen> {
                     itemCount: inProgressList.length,
                     itemBuilder: (context, index){
                       final pL = inProgressList[index];
-                      return RequestItemCard(model: pL);
+                      return AnimationExecutor(
+                          horizontalOffset: 15,
+                          verticalOffset: 0.0,
+                          begin: 0,
+                          end: 0.5,
+                          animationController: widget.animationController,
+                          isFirstPage: true,
+                          child: RequestItemCard(model: pL));
                     }
                 ),
               ),
@@ -98,7 +91,14 @@ class _RequestScreenState extends State<RequestScreen> {
                   itemCount: completeList.length,
                   itemBuilder: (context, index){
                     final cL = completeList[index];
-                    return RequestItemCard(model: cL);
+                    return AnimationExecutor(
+                        horizontalOffset: 15,
+                        verticalOffset: 0.0,
+                        begin: 0,
+                        end: 0.9,
+                        animationController: widget.animationController,
+                        isFirstPage: true,
+                        child: RequestItemCard(model: cL));
                   }
               ),
             ),

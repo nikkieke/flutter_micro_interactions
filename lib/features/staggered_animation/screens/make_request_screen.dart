@@ -5,7 +5,9 @@ import 'package:flutter_micro_interactions/features/features.dart';
 
 
 class MakeRequestScreen extends StatefulWidget {
-  const MakeRequestScreen({Key? key}) : super(key: key);
+  const MakeRequestScreen({Key? key, required this.animationController}) : super(key: key);
+
+  final AnimationController animationController;
 
   @override
   State<MakeRequestScreen> createState() => _MakeRequestScreenState();
@@ -163,6 +165,7 @@ class _MakeRequestScreenState extends State<MakeRequestScreen> {
                       hideButton = true;
                     });
                   },
+                  controller: widget.animationController,
                 ),
               ],
             ),
@@ -186,6 +189,7 @@ class _MakeRequestScreenState extends State<MakeRequestScreen> {
               });
             },
               isSpeechOn: isSpeechOn,
+              controller: widget.animationController,
             ),
           ],
         ),

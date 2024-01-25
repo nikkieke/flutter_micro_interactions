@@ -11,36 +11,40 @@ class StaggeredAnimationScreen extends StatefulWidget {
   State<StaggeredAnimationScreen> createState() => _StaggeredAnimationScreenState();
 }
 
-class _StaggeredAnimationScreenState extends State<StaggeredAnimationScreen> with AutomaticKeepAliveClientMixin{
+class _StaggeredAnimationScreenState extends State<StaggeredAnimationScreen>
+    with AutomaticKeepAliveClientMixin, SingleTickerProviderStateMixin{
   @override
   bool get wantKeepAlive => true;
 
   final controller = PageController(keepPage: true);
+   late AnimationController _animationController;
 
-
-  final List<Widget> pages = [
-    const RequestScreen(),
-    const MakeRequestScreen(),
-    Container()
-  ];
 
   int currentPage = 0;
 
   @override
   void initState() {
     super.initState();
-    print('main rebuild');
-
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 700),
+    );
+    _animationController.forward();
     controller.addListener(() {
-      setState(() {
-        currentPage = controller.page!.round();
-      });
+      currentPage = controller.page!.round();
+      if(currentPage == controller.page) {
+        _animationController
+          ..reset()
+          ..forward();
+
+      }
     });
   }
 
   @override
   void dispose() {
     controller.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -59,7 +63,16 @@ class _StaggeredAnimationScreenState extends State<StaggeredAnimationScreen> wit
         },
         physics: const CustomPageViewScrollPhysics(),
         children: [
-          ...pages,
+          AnimatedBuilder(animation: _animationController,
+              builder: (BuildContext context, Widget? child) {
+                return  RequestScreen(animationController: _animationController,);
+              }),
+          AnimatedBuilder(
+              animation: _animationController,
+              builder: (BuildContext context, Widget? child){
+                return  MakeRequestScreen(animationController: _animationController,);
+              }),
+          Container()
         ],
 
       ),

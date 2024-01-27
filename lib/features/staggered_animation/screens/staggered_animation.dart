@@ -13,14 +13,13 @@ class StaggeredAnimationScreen extends StatefulWidget {
 
 class _StaggeredAnimationScreenState extends State<StaggeredAnimationScreen>
     with AutomaticKeepAliveClientMixin, SingleTickerProviderStateMixin{
+
   @override
   bool get wantKeepAlive => true;
 
   final controller = PageController(keepPage: true);
    late AnimationController _animationController;
-
-
-  int currentPage = 0;
+   int currentPage = 0;
 
   @override
   void initState() {
@@ -47,8 +46,6 @@ class _StaggeredAnimationScreenState extends State<StaggeredAnimationScreen>
     _animationController.dispose();
     super.dispose();
   }
-
-
 
 
   @override

@@ -21,7 +21,6 @@ class TextSpeechButton extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
-
     return AnimatedBuilder(
       animation: controller,
       builder: (BuildContext context, Widget? child) {
@@ -30,49 +29,77 @@ class TextSpeechButton extends StatelessWidget {
           left: 0,
           right: - screenWidth/1.4,
           child: isSpeechOn?
-          InkWell(
-            customBorder: const CircleBorder(),
-            splashColor: const Color(0xff181818),
-            onTap: keyboardTapped,
-            child: Container(
-              padding: const EdgeInsets.all(15),
-              height: 50,
-              decoration: const ShapeDecoration(
-                  shape: CircleBorder(),
-                  color: Color(0xff303030)
-              ),
-              child: SvgPicture.asset(
-                  'assets/images/keyboard.svg',
-                  width: 20,
-                  colorFilter: const ColorFilter.mode(
-                    Color(0xff929292),
-                    BlendMode.srcIn,
-                  )
-              ),
-            ),
-          ):
-          InkWell(
-            splashColor: const Color(0xff181818),
-            onTap: micTapped,
-            child: Container(
-              padding: const EdgeInsets.all(15),
-              height: 50,
-              decoration: const ShapeDecoration(
-                  shape: CircleBorder(),
-                  color: Color(0xff303030)
-              ),
-              child: SvgPicture.asset(
-                  'assets/images/mic.svg',
-                  width: 20,
-                  colorFilter: const ColorFilter.mode(
-                    Color(0xff929292),
-                    BlendMode.srcIn,
-                  )
-              ),
-            ),
-          ),
+          KeyboardIcon(keyboardTapped: keyboardTapped):
+          MicIcon(micTapped: micTapped),
         );
       },
+    );
+  }
+}
+
+class MicIcon extends StatelessWidget {
+  const MicIcon({
+    super.key,
+    required this.micTapped,
+  });
+
+  final VoidCallback micTapped;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      splashColor: const Color(0xff181818),
+      onTap: micTapped,
+      child: Container(
+        padding: const EdgeInsets.all(15),
+        height: 50,
+        decoration: const ShapeDecoration(
+            shape: CircleBorder(),
+            color: Color(0xff303030)
+        ),
+        child: SvgPicture.asset(
+            'assets/images/mic.svg',
+            width: 20,
+            colorFilter: const ColorFilter.mode(
+              Color(0xff929292),
+              BlendMode.srcIn,
+            )
+        ),
+      ),
+    );
+  }
+}
+
+class KeyboardIcon extends StatelessWidget {
+  const KeyboardIcon({
+    super.key,
+    required this.keyboardTapped,
+  });
+
+  final VoidCallback keyboardTapped;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      customBorder: const CircleBorder(),
+      splashColor: const Color(0xff181818),
+      onTap: keyboardTapped,
+      child: Container(
+        padding: const EdgeInsets.all(15),
+        height: 50,
+        decoration: const ShapeDecoration(
+            shape: CircleBorder(),
+            color: Color(0xff303030)
+        ),
+        child: SvgPicture.asset(
+            'assets/images/keyboard.svg',
+            width: 20,
+            colorFilter: const ColorFilter.mode(
+              Color(0xff929292),
+              BlendMode.srcIn,
+            )
+        ),
+      ),
     );
   }
 }

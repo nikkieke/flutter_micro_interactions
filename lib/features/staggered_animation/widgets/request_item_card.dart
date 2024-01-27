@@ -52,19 +52,13 @@ class RequestItemCard extends StatelessWidget {
           ),
           model.isCompleted?
               Container():
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: LinearPercentIndicator(
-              padding: EdgeInsets.zero,
-              lineHeight: 3,
-              backgroundColor: Colors.transparent,
-              percent: 0.4,
-              progressColor: const Color(0xff3b937e),
-              barRadius: const Radius.circular(2),
-            ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            child: PercentIndicatorLinear(),
           ),
         ],
       ),
     );
   }
 }
+

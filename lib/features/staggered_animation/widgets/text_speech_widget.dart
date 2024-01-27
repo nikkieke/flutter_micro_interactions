@@ -42,46 +42,60 @@ class _TextSpeechWidgetState extends State<TextSpeechWidget> {
         child: SingleChildScrollView(
           child: FadeTransition(
             opacity: widget.controller,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              width: double.maxFinite,
-              height: 250,
-              color: const Color(0xff1f1f1f),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  widget.isSpeechOn?
-                  Container():
-                  TextField(
-                    onTap: widget.tapped,
-                      focusNode: widget.focusNode,
-                    controller: widget.textCtr,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "Start typing or speaking",
-                      hintStyle: TextStyle(color: Color(0xff929292)),
-                    ),
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white),
-                    onEditingComplete: (){
-                      widget.textCtr.clear();
-                    }
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    height: 100,
-                    width: double.maxFinite,
-                    child: widget.riveAnimation,
-                  ),
-                ],
-              ),
-            ),
+            child: TypingSpeakingWidget(widget: widget),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class TypingSpeakingWidget extends StatelessWidget {
+  const TypingSpeakingWidget({
+    super.key,
+    required this.widget,
+  });
+
+  final TextSpeechWidget widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      width: double.maxFinite,
+      height: 250,
+      color: const Color(0xff1f1f1f),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          widget.isSpeechOn?
+          Container():
+          TextField(
+            onTap: widget.tapped,
+              focusNode: widget.focusNode,
+            controller: widget.textCtr,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              hintText: "Start typing or speaking",
+              hintStyle: TextStyle(color: Color(0xff929292)),
+            ),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white),
+            onEditingComplete: (){
+              widget.textCtr.clear();
+            }
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          SizedBox(
+            height: 100,
+            width: double.maxFinite,
+            child: widget.riveAnimation,
+          ),
+        ],
       ),
     );
   }

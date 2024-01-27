@@ -35,7 +35,7 @@ class _AnimationExecutorState extends State<AnimationExecutor> {
 
   @override
   Widget build(BuildContext context) {
-          return _slideAnimation(widget.animationController);
+    return _slideAnimation(widget.animationController);
   }
 
 

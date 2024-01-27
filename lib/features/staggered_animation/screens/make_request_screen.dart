@@ -144,7 +144,6 @@ class _MakeRequestScreenState extends State<MakeRequestScreen> {
                   textCtr: textCtr,
                   riveAnimation: RiveAnimation.asset(
                     "assets/images/voice_assistant_animation.riv",
-                    //fit: BoxFit.fitHeight,
                     stateMachines: const ["Login State Machine"],
                     artboard: 'compose',
                     onInit: (artboard) {
@@ -155,7 +154,6 @@ class _MakeRequestScreenState extends State<MakeRequestScreen> {
                       if (controller == null) return;
                       artboard.addController(controller!);
                       input = controller?.findSMI("isActive") as SMIBool;
-
                     },
                   ),
                   tapped: () {

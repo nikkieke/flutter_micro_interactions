@@ -40,7 +40,7 @@ class SideDrawer extends StatelessWidget {
                       title: const Text("Clock Animation",style: TextStyle(
                           color: Colors.white,  fontSize: 15)),
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder:(context)=> const ClockScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder:(context)=> const EntryPoint()));
                       }
                   ),
 

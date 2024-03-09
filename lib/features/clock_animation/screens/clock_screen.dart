@@ -19,7 +19,10 @@ class _ClockScreenState extends State<ClockScreen> {
     setState(() {
       selectedIndex = index;
     });
+    print('here');
+
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +67,7 @@ class _ClockScreenState extends State<ClockScreen> {
                 padding: const EdgeInsets.only(left: 30),
                 child: Row(
                   children: [
+                    //fix bug on button, not changing color when tapped
                     Button(
                       title: 'LONDON',
                       onPressed: ()=> handleButtonPress(0),

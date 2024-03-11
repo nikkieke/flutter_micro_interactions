@@ -11,16 +11,48 @@ class ClockScreen extends StatefulWidget {
   State<ClockScreen> createState() => _ClockScreenState();
 }
 
-class _ClockScreenState extends State<ClockScreen> {
+class _ClockScreenState extends State<ClockScreen> with SingleTickerProviderStateMixin{
   int selectedIndex = 0;
   bool isIconTapped = true;
+
+  late AnimationController _animationController;
+  late Animation<double>_animation;
 
   void handleButtonPress(int index) {
     setState(() {
       selectedIndex = index;
     });
     print('here');
+  }
 
+  @override
+  void initState() {
+    //define animation controller properties
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+    //add listener so that when the animation reaches the end, it reverses the widget
+    //to the start
+    _animation = Tween(begin: 1.0, end: 0.9).animate(_animationController)
+      ..addListener(() {
+        setState(() {});
+      });
+    //reverses the animated widget to the beginning state,
+    //ie to show that animation has been completed
+    _animationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _animationController.reverse();
+      }
+    });
+    super.initState();
+  }
+
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
 
@@ -68,16 +100,29 @@ class _ClockScreenState extends State<ClockScreen> {
                 child: Row(
                   children: [
                     //fix bug on button, not changing color when tapped
-                    Button(
-                      title: 'LONDON',
-                      onPressed: ()=> handleButtonPress(0),
-                      isSelected: selectedIndex==0,
+                    Transform.scale(
+                      scale: _animation.value,
+                      child: Button(
+                        title: 'LONDON',
+                        onPressed: ()=> handleButtonPress(0),
+                        isSelected: selectedIndex==0,
+                        animation: _animation,
+                      ),
                     ),
                     const SizedBox(width: 20,),
-                    Button(
-                      title: 'NEW YORK',
-                      onPressed: ()=>handleButtonPress(1),
-                      isSelected: selectedIndex==1,
+                    Transform.scale(
+                      scale: _animation.value,
+                      child: Button(
+                        title: 'NEW YORK',
+                        onPressed: (){
+                          handleButtonPress(1);
+                          print('onpressed');
+                            _animationController.forward();
+
+                          },
+                          isSelected: selectedIndex==1,
+                        animation: _animation,
+                      ),
                     ),
                   ],
                 ),

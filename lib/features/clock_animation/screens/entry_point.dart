@@ -12,7 +12,7 @@ class EntryPoint extends StatefulWidget {
 class _EntryPointState extends State<EntryPoint> {
   List pages = [
     const ClockScreen(),
-    Container(),
+    const AlarmScreen(),
     Container(),
     Container(),
   ];

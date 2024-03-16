@@ -11,12 +11,14 @@ class ClockScreen extends StatefulWidget {
   State<ClockScreen> createState() => _ClockScreenState();
 }
 
-class _ClockScreenState extends State<ClockScreen> with SingleTickerProviderStateMixin{
+class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin{
   int selectedIndex = 0;
   bool isIconTapped = true;
 
   late AnimationController _animationController;
   late Animation<double>_animation;
+  late Animation<double>_secondAnimation;
+  late AnimationController _secondAnimationController;
 
   void handleButtonPress(int index) {
     setState(() {
@@ -32,9 +34,17 @@ class _ClockScreenState extends State<ClockScreen> with SingleTickerProviderStat
       vsync: this,
       duration: const Duration(milliseconds: 200),
     );
+    _secondAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
     //add listener so that when the animation reaches the end, it reverses the widget
     //to the start
     _animation = Tween(begin: 1.0, end: 0.9).animate(_animationController)
+      ..addListener(() {
+        setState(() {});
+      });
+    _secondAnimation = Tween(begin: 1.0, end: 0.9).animate(_secondAnimationController)
       ..addListener(() {
         setState(() {});
       });
@@ -43,6 +53,11 @@ class _ClockScreenState extends State<ClockScreen> with SingleTickerProviderStat
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         _animationController.reverse();
+      }
+    });
+    _secondAnimationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _secondAnimationController.reverse();
       }
     });
     super.initState();
@@ -101,10 +116,13 @@ class _ClockScreenState extends State<ClockScreen> with SingleTickerProviderStat
                   children: [
                     //fix bug on button, not changing color when tapped
                     Transform.scale(
-                      scale: _animation.value,
+                      scale: _secondAnimation.value,
                       child: Button(
                         title: 'LONDON',
-                        onPressed: ()=> handleButtonPress(0),
+                        onPressed: (){
+                          handleButtonPress(0);
+                          _secondAnimationController.forward();
+                        },
                         isSelected: selectedIndex==0,
                         animation: _animation,
                       ),

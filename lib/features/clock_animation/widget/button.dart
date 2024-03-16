@@ -62,7 +62,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin{
       //  widget.onPressed;
       // },
       onTap: widget.onPressed,
-      child: Container(
+      child:  Container(
         alignment: Alignment.center,
         height: 70,
         width: 160,

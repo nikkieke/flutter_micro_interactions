@@ -24,12 +24,11 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
     setState(() {
       selectedIndex = index;
     });
-    print('here');
   }
 
   @override
   void initState() {
-    //define animation controller properties
+    ///define animation controller properties
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 200),
@@ -38,8 +37,8 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
       vsync: this,
       duration: const Duration(milliseconds: 200),
     );
-    //add listener so that when the animation reaches the end, it reverses the widget
-    //to the start
+    ///add listener so that when the animation reaches the end, it reverses the widget
+    ///to the start
     _animation = Tween(begin: 1.0, end: 0.9).animate(_animationController)
       ..addListener(() {
         setState(() {});
@@ -48,8 +47,8 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
       ..addListener(() {
         setState(() {});
       });
-    //reverses the animated widget to the beginning state,
-    //ie to show that animation has been completed
+    ///reverses the animated widget to the beginning state,
+    ///ie to show that animation has been completed
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         _animationController.reverse();
@@ -106,7 +105,22 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
                 width: double.maxFinite,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: UiColors.mustard
+                  border: Border.all(color: UiColors.lightBlueCard, width: 10,),
+                    boxShadow:
+                    [
+                      BoxShadow(
+                        color: Colors.grey.shade400,
+                        offset: const Offset(4, 4),
+                        blurRadius: 15,
+                        spreadRadius: 1,
+                      ),
+                      const BoxShadow(
+                        color: Colors.white,
+                        offset: Offset(-4, -4),
+                        blurRadius: 15,
+                        spreadRadius: 1,
+                      ),
+                    ]
                 ),
               ),
               const SizedBox(height: 30,),
@@ -124,7 +138,7 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
                           _secondAnimationController.forward();
                         },
                         isSelected: selectedIndex==0,
-                        animation: _animation,
+                        animation: _secondAnimation,
                       ),
                     ),
                     const SizedBox(width: 20,),
@@ -134,12 +148,11 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
                         title: 'NEW YORK',
                         onPressed: (){
                           handleButtonPress(1);
-                          print('onpressed');
-                            _animationController.forward();
+                          _animationController.forward();
 
                           },
                           isSelected: selectedIndex==1,
-                        animation: _animation,
+                          animation: _animation,
                       ),
                     ),
                   ],

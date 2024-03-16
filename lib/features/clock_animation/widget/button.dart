@@ -11,56 +11,16 @@ class Button extends StatefulWidget {
   final bool isSelected;
   final Animation animation;
 
-
-
   @override
   State<Button> createState() => _ButtonState();
 }
 
 class _ButtonState extends State<Button> with SingleTickerProviderStateMixin{
-  //define animation controller and animation
-  // late AnimationController _animationController;
-  // late Animation<double>_animation;
-  //
-  // @override
-  // void initState() {
-  //   //define animation controller properties
-  //   _animationController = AnimationController(
-  //     vsync: this,
-  //     duration: const Duration(milliseconds: 200),
-  //   );
-  //   //add listener so that when the animation reaches the end, it reverses the widget
-  //   //to the start
-  //   _animation = Tween(begin: 1.0, end: 0.9).animate(_animationController)
-  //     ..addListener(() {
-  //       setState(() {});
-  //     });
-  //   //reverses the animated widget to the beginning state,
-  //   //ie to show that animation has been completed
-  //   _animationController.addStatusListener((status) {
-  //     if (status == AnimationStatus.completed) {
-  //       _animationController.reverse();
-  //     }
-  //   });
-  //   super.initState();
-  // }
-  //
-  //
-  // @override
-  // void dispose() {
-  //   _animationController.dispose();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
 
     return InkWell(
-      // onTap: (){
-      //   // _animationController.forward();
-      //   // print('here');
-      //  widget.onPressed;
-      // },
       onTap: widget.onPressed,
       child:  Container(
         alignment: Alignment.center,

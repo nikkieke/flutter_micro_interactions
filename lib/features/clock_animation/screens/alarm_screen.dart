@@ -39,49 +39,12 @@ class _AlarmScreenState extends State<AlarmScreen> {
                   ],
                 ),
               ),
-              const Padding(padding: EdgeInsets.symmetric(horizontal: 30)),
-              Stack(
-                children: [
-                  Row(
-                    children: [
-                      const UiTexts(text: 'Everyday', size: 25,),
-                    ],
-                  ),
-                  Container(
-                    alignment: Alignment.bottomCenter,
-                    height: 250,
-                    width: 200,
-                    decoration: BoxDecoration(
-                        color: UiColors.lightBlueCard,
-                        border: Border.all(color: Colors.white, width: 3),
-                        borderRadius: const BorderRadius.all(Radius.circular(40)),
-                        boxShadow:
-                        [
-                          BoxShadow(
-                            color: Colors.grey.shade400,
-                            offset: const Offset(4, 4),
-                            blurRadius: 15,
-                            spreadRadius: 1,
-                          ),
-                          const BoxShadow(
-                            color: Colors.white,
-                            offset: Offset(-2, -2),
-                            blurRadius: 15,
-                            spreadRadius: 1,
-                          ),
-                        ]
-                    ),
-                    child: const Text('AM', style:
-                    TextStyle(fontSize: 100,
-                      fontWeight: FontWeight.w800,
-                      color: Color(0xffd1d6ed),
-                    ),),
-                  ),
-                ]
-              )
+              const SizedBox(height: 20,),
+              AlarmWidget()
             ],
           )
       ),
     );
   }
 }
+

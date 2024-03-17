@@ -42,6 +42,11 @@ class _AlarmScreenState extends State<AlarmScreen> {
               const Padding(padding: EdgeInsets.symmetric(horizontal: 30)),
               Stack(
                 children: [
+                  Row(
+                    children: [
+                      const UiTexts(text: 'Everyday', size: 25,),
+                    ],
+                  ),
                   Container(
                     alignment: Alignment.bottomCenter,
                     height: 250,

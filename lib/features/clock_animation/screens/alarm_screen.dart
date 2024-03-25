@@ -11,6 +11,8 @@ class AlarmScreen extends StatefulWidget {
 }
 
 class _AlarmScreenState extends State<AlarmScreen> {
+  bool selected = false;
+  bool selected2 = false;
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -39,8 +41,36 @@ class _AlarmScreenState extends State<AlarmScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 20,),
-              AlarmWidget()
+               SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 20,),
+                    AlarmWidget(
+                      alarmDay1: 'Everyday',
+                      alarmDay2: '',
+                      time: '05:00',
+                      onTap: () {
+                        setState(() {
+                          selected = !selected;
+                        });
+                      },
+                      isSelected: selected,
+                    ),
+                    const SizedBox(height: 20,),
+                    AlarmWidget(
+                      alarmDay1: 'SAT',
+                      alarmDay2: 'MON',
+                      time: '08:00',
+                      onTap: () {
+                        setState(() {
+                          selected2 = !selected2;
+                        });
+                      },
+                      isSelected: selected2,
+                    ),
+                  ],
+                ),
+              ),
             ],
           )
       ),

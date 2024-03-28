@@ -75,73 +75,83 @@ class _AlarmWidgetState extends State<AlarmWidget> {
               ]
           ),
           const SizedBox(width: 30,),
-          Container(
-            alignment: widget.isSelected?Alignment.topCenter: Alignment.bottomCenter,
-            padding: const EdgeInsets.only(bottom: 8),
-             height: 170,
-            width: 90,
-            decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(47)),
-                border: Border.all(color: Colors.white, width: 2,),
-                color: UiColors.lightBlueCard,
-                boxShadow:
-                [
-                  BoxShadow(
-                    color: Colors.grey.shade400,
-                    offset: const Offset(4, 4),
-                    blurRadius: 15,
-                    spreadRadius: 1,
-                  ),
-                  const BoxShadow(
-                    color: Colors.white,
-                    offset: Offset(-4, -4),
-                    blurRadius: 15,
-                    spreadRadius: 1,
-                  ),
-                ]
-            ),
-            child: InkWell(
-              onTap: widget.onTap,
-              child: Container(
-                height: 100,
-                width: 80,
-                alignment: Alignment.center,
+          Stack(
+            children: [
+              Container(
+                padding: const EdgeInsets.only(bottom: 8),
+                 height: 170,
+                width: 90,
                 decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient:  LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: [
-                          widget.isSelected? UiColors.mustard: const Color(0xff4a3863),
-                          widget.isSelected? UiColors.mustard: const Color(0xff775d91),
-                        ]
-                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(47)),
+                    border: Border.all(color: Colors.white, width: 2,),
+                    color: UiColors.lightBlueCard,
                     boxShadow:
                     [
                       BoxShadow(
                         color: Colors.grey.shade400,
-                        offset: const Offset(5, 5),
+                        offset: const Offset(4, 4),
                         blurRadius: 15,
                         spreadRadius: 1,
                       ),
                       const BoxShadow(
                         color: Colors.white,
-                        offset: Offset(-5, -5),
+                        offset: Offset(-4, -4),
                         blurRadius: 15,
                         spreadRadius: 1,
                       ),
                     ]
                 ),
-                child:  Text(
-                  widget.isSelected?'ON':'OFF',
-                  style:  TextStyle(
-                    color: widget.isSelected? Colors.black:const Color(0xff9c86b3),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 26,
+              ),
+              AnimatedPositioned(
+                duration: const Duration(milliseconds: 200),
+                top: widget.isSelected? 0 : 65,
+                left: 0,
+                right: 0,
+                curve: Curves.easeIn,
+                child: InkWell(
+                  onTap: widget.onTap,
+                  child: Container(
+                    height: 100,
+                    width: 80,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient:  LinearGradient(
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                            colors: [
+                              widget.isSelected? UiColors.mustard: const Color(0xff4a3863),
+                              widget.isSelected? UiColors.mustard: const Color(0xff775d91),
+                            ]
+                        ),
+                        boxShadow:
+                        [
+                          BoxShadow(
+                            color: Colors.grey.shade400,
+                            offset: const Offset(5, 5),
+                            blurRadius: 15,
+                            spreadRadius: 1,
+                          ),
+                          const BoxShadow(
+                            color: Colors.white,
+                            offset: Offset(-5, -5),
+                            blurRadius: 15,
+                            spreadRadius: 1,
+                          ),
+                        ]
+                    ),
+                    child:  Text(
+                      widget.isSelected?'ON':'OFF',
+                      style:  TextStyle(
+                        color: widget.isSelected? Colors.black:const Color(0xff9c86b3),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 26,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           )
         ],
       ),

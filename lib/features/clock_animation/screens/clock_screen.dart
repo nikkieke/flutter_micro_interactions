@@ -100,35 +100,12 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
               ),
               const SizedBox(height: 50,),
               const UiTexts(text: '04:45:11 AM', size: 45),
-              Container(
-                height: 350,
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: UiColors.lightBlueCard, width: 10,),
-                    boxShadow:
-                    [
-                      BoxShadow(
-                        color: Colors.grey.shade400,
-                        offset: const Offset(4, 4),
-                        blurRadius: 15,
-                        spreadRadius: 1,
-                      ),
-                      const BoxShadow(
-                        color: Colors.white,
-                        offset: Offset(-4, -4),
-                        blurRadius: 15,
-                        spreadRadius: 1,
-                      ),
-                    ]
-                ),
-              ),
+              ClockFace(),
               const SizedBox(height: 30,),
               Padding(
                 padding: const EdgeInsets.only(left: 30),
                 child: Row(
                   children: [
-                    //fix bug on button, not changing color when tapped
                     Transform.scale(
                       scale: _secondAnimation.value,
                       child: Button(
@@ -165,7 +142,6 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
     );
   }
 }
-
 
 
 

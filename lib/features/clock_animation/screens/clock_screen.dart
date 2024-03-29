@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_micro_interactions/features/features.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:instant/instant.dart';
+import 'package:intl/intl.dart';
 
 
 
@@ -20,11 +24,10 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
   late Animation<double>_secondAnimation;
   late AnimationController _secondAnimationController;
 
-  void handleButtonPress(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
+  String currentTime = DateFormat('hh:mm:ss a').format(curDateTimeByZone(zone: 'GMT'));
+  late Timer _timer;
+  DateTime now = DateTime.now();
+
 
   @override
   void initState() {
@@ -59,6 +62,13 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
         _secondAnimationController.reverse();
       }
     });
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        selectedIndex==0?
+        currentTime = DateFormat('hh:mm:ss a').format(curDateTimeByZone(zone: 'GMT'))
+        :currentTime = DateFormat('hh:mm:ss a').format(curDateTimeByZone(zone: 'EDT'));
+      });
+    });
     super.initState();
   }
 
@@ -66,9 +76,15 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
   @override
   void dispose() {
     _animationController.dispose();
+    _timer.cancel();
     super.dispose();
   }
 
+  void handleButtonPress(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,12 +115,20 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
                 ),
               ),
               const SizedBox(height: 50,),
-              const UiTexts(text: '04:45:11 AM', size: 45),
-              ClockFace(),
-              const SizedBox(height: 30,),
+              AnimatedCrossFade(
+                  firstChild: UiTexts(text: currentTime, size: 45),
+                  secondChild: UiTexts(text: currentTime, size: 45),
+                  crossFadeState: selectedIndex==0? CrossFadeState.showFirst:
+                    CrossFadeState.showSecond,
+                duration: const Duration(milliseconds: 600),
+              ),
+              const SizedBox(height: 20,),
+              ClockFace(isLondonSelected: selectedIndex==0,),
+              const Spacer(),
               Padding(
                 padding: const EdgeInsets.only(left: 30),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Transform.scale(
                       scale: _secondAnimation.value,
@@ -126,7 +150,6 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
                         onPressed: (){
                           handleButtonPress(1);
                           _animationController.forward();
-
                           },
                           isSelected: selectedIndex==1,
                           animation: _animation,
@@ -135,6 +158,7 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
                   ],
                 ),
               ),
+              const SizedBox(height: 50,),
             ],
           ),
       ),

@@ -1,10 +1,42 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-class ClockFace extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter_micro_interactions/features/clock_animation/clock_animation.dart';
+import 'package:instant/instant.dart';
+
+class ClockFace extends StatefulWidget {
   const ClockFace({
-    super.key,
+    super.key, required this.isLondonSelected,
   });
 
+  final bool isLondonSelected;
+
+  @override
+  State<ClockFace> createState() => _ClockFaceState();
+}
+
+class _ClockFaceState extends State<ClockFace> {
+
+  DateTime currentDateAndTime = curDateTimeByZone(zone: 'GMT');
+  late Timer _timer;
+
+  @override
+  void initState() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        widget.isLondonSelected == true?
+        currentDateAndTime = curDateTimeByZone(zone: 'GMT'):
+        currentDateAndTime = curDateTimeByZone(zone: 'EDT');
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -14,6 +46,7 @@ class ClockFace extends StatelessWidget {
           Container(
             height: 320,
             width: double.maxFinite,
+            padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color:const Color(0xffE7EEFC),
@@ -33,6 +66,9 @@ class ClockFace extends StatelessWidget {
                     spreadRadius: 1,
                   ),
                 ]
+            ),
+            child: CustomPaint(
+              painter: ClockDialPainter(),
             ),
           ),
           Align(
@@ -73,8 +109,42 @@ class ClockFace extends StatelessWidget {
               ),
             ),
           ),
+          Align(
+            alignment: Alignment.center,
+            child: AspectRatio(
+              aspectRatio: 1.0,
+              child: Container(
+                height: 320,
+                width: double.maxFinite,
+                padding: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color:Colors.transparent,
+                ),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    CustomPaint(
+                      painter: HourHand(currentTime: currentDateAndTime),
+                    ),
+                    CustomPaint(
+                      painter: MinutesHand(currentTime: currentDateAndTime),
+                    ),
+                    CustomPaint(
+                      painter: SecondHand(currentTime: currentDateAndTime),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
+
+
+
+
+

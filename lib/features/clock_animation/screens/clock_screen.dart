@@ -6,8 +6,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:instant/instant.dart';
 import 'package:intl/intl.dart';
 
-
-
 class ClockScreen extends StatefulWidget {
   const ClockScreen({super.key});
 
@@ -15,19 +13,20 @@ class ClockScreen extends StatefulWidget {
   State<ClockScreen> createState() => _ClockScreenState();
 }
 
-class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin{
+class _ClockScreenState extends State<ClockScreen>
+    with TickerProviderStateMixin {
   int selectedIndex = 0;
   bool isIconTapped = true;
 
   late AnimationController _animationController;
-  late Animation<double>_animation;
-  late Animation<double>_secondAnimation;
+  late Animation<double> _animation;
+  late Animation<double> _secondAnimation;
   late AnimationController _secondAnimationController;
 
-  String currentTime = DateFormat('hh:mm:ss a').format(curDateTimeByZone(zone: 'GMT'));
+  String currentTime =
+      DateFormat('hh:mm:ss a').format(curDateTimeByZone(zone: 'GMT'));
   late Timer _timer;
   DateTime now = DateTime.now();
-
 
   @override
   void initState() {
@@ -40,16 +39,19 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
       vsync: this,
       duration: const Duration(milliseconds: 200),
     );
+
     ///add listener so that when the animation reaches the end, it reverses the widget
     ///to the start
     _animation = Tween(begin: 1.0, end: 0.9).animate(_animationController)
       ..addListener(() {
         setState(() {});
       });
-    _secondAnimation = Tween(begin: 1.0, end: 0.9).animate(_secondAnimationController)
-      ..addListener(() {
-        setState(() {});
-      });
+    _secondAnimation =
+        Tween(begin: 1.0, end: 0.9).animate(_secondAnimationController)
+          ..addListener(() {
+            setState(() {});
+          });
+
     ///reverses the animated widget to the beginning state,
     ///ie to show that animation has been completed
     _animationController.addStatusListener((status) {
@@ -64,14 +66,15 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
     });
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
-        selectedIndex==0?
-        currentTime = DateFormat('hh:mm:ss a').format(curDateTimeByZone(zone: 'GMT'))
-        :currentTime = DateFormat('hh:mm:ss a').format(curDateTimeByZone(zone: 'EDT'));
+        selectedIndex == 0
+            ? currentTime =
+                DateFormat('hh:mm:ss a').format(curDateTimeByZone(zone: 'GMT'))
+            : currentTime =
+                DateFormat('hh:mm:ss a').format(curDateTimeByZone(zone: 'EDT'));
       });
     });
     super.initState();
   }
-
 
   @override
   void dispose() {
@@ -88,14 +91,13 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: UiColors.lightBlueBG,
-      body:
-      SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: SafeArea(
-            child: Container(
-              height: MediaQuery.of(context).size.height,
+      body: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: SafeArea(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
             padding: const EdgeInsets.only(right: 20, top: 30, left: 20),
             child: Column(
               children: [
@@ -108,26 +110,39 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
                       padding: const EdgeInsets.all(11),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey, width: 0.5),
-                        borderRadius: const BorderRadius.all(Radius.circular(15)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(15)),
                       ),
                       child: SvgPicture.asset(
-                          'assets/images/menu_bar.svg',
+                        'assets/images/menu_bar.svg',
                       ),
-                      ),
-                    const UiTexts(text: 'WORLD CLOCK', size: 25,),
+                    ),
+                    const UiTexts(
+                      text: 'WORLD CLOCK',
+                      size: 25,
+                    ),
                   ],
                 ),
-                const SizedBox(height: 30,),
+                const SizedBox(
+                  height: 30,
+                ),
                 AnimatedCrossFade(
-                    firstChild: UiTexts(text: currentTime, size: 45),
-                    secondChild: UiTexts(text: currentTime, size: 45),
-                    crossFadeState: selectedIndex==0? CrossFadeState.showFirst:
-                      CrossFadeState.showSecond,
+                  firstChild: UiTexts(text: currentTime, size: 45),
+                  secondChild: UiTexts(text: currentTime, size: 45),
+                  crossFadeState: selectedIndex == 0
+                      ? CrossFadeState.showFirst
+                      : CrossFadeState.showSecond,
                   duration: const Duration(milliseconds: 600),
                 ),
-                const SizedBox(height: 20,),
-                ClockFace(isLondonSelected: selectedIndex==0,),
-                const SizedBox(height: 30,),
+                const SizedBox(
+                  height: 20,
+                ),
+                ClockFace(
+                  isLondonSelected: selectedIndex == 0,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -135,39 +150,39 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
                       scale: _secondAnimation.value,
                       child: Button(
                         title: 'LONDON',
-                        onPressed: (){
+                        onPressed: () {
                           handleButtonPress(0);
                           _secondAnimationController.forward();
                         },
-                        isSelected: selectedIndex==0,
+                        isSelected: selectedIndex == 0,
                         animation: _secondAnimation,
                       ),
                     ),
-                    const SizedBox(width: 20,),
+                    const SizedBox(
+                      width: 20,
+                    ),
                     Transform.scale(
                       scale: _animation.value,
                       child: Button(
                         title: 'NEW YORK',
-                        onPressed: (){
+                        onPressed: () {
                           handleButtonPress(1);
                           _animationController.forward();
-                          },
-                          isSelected: selectedIndex==1,
-                          animation: _animation,
+                        },
+                        isSelected: selectedIndex == 1,
+                        animation: _animation,
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 30,),
+                const SizedBox(
+                  height: 30,
+                ),
               ],
             ),
-                    ),
           ),
+        ),
       ),
-
     );
   }
 }
-
-
-

@@ -90,12 +90,16 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
   Widget build(BuildContext context) {
     return  Scaffold(
       backgroundColor: UiColors.lightBlueBG,
-      body: SafeArea(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 30, top: 30, left: 30),
-                child: Row(
+      body:
+      SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: SafeArea(
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+            padding: const EdgeInsets.only(right: 20, top: 30, left: 20),
+            child: Column(
+              children: [
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
@@ -113,21 +117,18 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
                     const UiTexts(text: 'WORLD CLOCK', size: 25,),
                   ],
                 ),
-              ),
-              const SizedBox(height: 50,),
-              AnimatedCrossFade(
-                  firstChild: UiTexts(text: currentTime, size: 45),
-                  secondChild: UiTexts(text: currentTime, size: 45),
-                  crossFadeState: selectedIndex==0? CrossFadeState.showFirst:
-                    CrossFadeState.showSecond,
-                duration: const Duration(milliseconds: 600),
-              ),
-              const SizedBox(height: 20,),
-              ClockFace(isLondonSelected: selectedIndex==0,),
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.only(left: 30),
-                child: Row(
+                const SizedBox(height: 30,),
+                AnimatedCrossFade(
+                    firstChild: UiTexts(text: currentTime, size: 45),
+                    secondChild: UiTexts(text: currentTime, size: 45),
+                    crossFadeState: selectedIndex==0? CrossFadeState.showFirst:
+                      CrossFadeState.showSecond,
+                  duration: const Duration(milliseconds: 600),
+                ),
+                const SizedBox(height: 20,),
+                ClockFace(isLondonSelected: selectedIndex==0,),
+                const SizedBox(height: 30,),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Transform.scale(
@@ -157,9 +158,10 @@ class _ClockScreenState extends State<ClockScreen> with TickerProviderStateMixin
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(height: 50,),
-            ],
+                const SizedBox(height: 30,),
+              ],
+            ),
+                    ),
           ),
       ),
 

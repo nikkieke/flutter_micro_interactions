@@ -5,15 +5,15 @@ This repository showcases different examples of micro-interactivity implemented 
 <table>
 	<tbody width="100%">
 	<tr>
-			<th>Planner App</th>
-      <th>Analog Clock app</th>
+	<th>Planner App</th>
+     	<th>Analog Clock app</th>
 		</tr>
 		<tr>
-      <td>
-			<img src="https://github.com/nikkieke/flutter_micro_interactions/assets/95222620/6d3b4f58-52ab-4076-bfd1-f809a267ab60" alt="Archery Animation"></img>
+      			<td>
+			<img src="https://github.com/nikkieke/flutter_micro_interactions/assets/95222620/6d3b4f58-52ab-4076-bfd1-f809a267ab60" alt="Planner app"></img>
 			</td>
-	    <td>
-			<img src="https://github.com/nikkieke/flutter_micro_interactions/assets/95222620/5749ebec-8691-46d9-a996-632070c5aabb" alt="Bottom Nav Icon Animation"></img>
+	    		<td>
+			<img src="https://github.com/nikkieke/flutter_micro_interactions/assets/95222620/df3a44f3-f422-476c-b7fd-b54e7dcea534" alt="Analog clock app"></img>
 			</td>
 		</tr>
 		</tr>

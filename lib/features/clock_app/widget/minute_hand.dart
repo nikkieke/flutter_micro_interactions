@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_micro_interactions/features/clock_animation/clock_animation.dart';
+import 'package:flutter_micro_interactions/features/features.dart';
+
 
 class MinutesHand extends CustomPainter{
   final DateTime currentTime;

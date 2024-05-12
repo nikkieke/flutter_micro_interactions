@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_micro_interactions/features/clock_animation/clock_animation.dart';
 import 'package:instant/instant.dart';
+import 'package:flutter_micro_interactions/features/features.dart';
+
 
 class ClockFace extends StatefulWidget {
   const ClockFace({

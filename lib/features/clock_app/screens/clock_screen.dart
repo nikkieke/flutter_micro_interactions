@@ -155,7 +155,6 @@ class _ClockScreenState extends State<ClockScreen>
                           _secondAnimationController.forward();
                         },
                         isSelected: selectedIndex == 0,
-                        animation: _secondAnimation,
                       ),
                     ),
                     const SizedBox(
@@ -170,7 +169,6 @@ class _ClockScreenState extends State<ClockScreen>
                           _animationController.forward();
                         },
                         isSelected: selectedIndex == 1,
-                        animation: _animation,
                       ),
                     ),
                   ],

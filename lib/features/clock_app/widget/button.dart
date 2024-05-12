@@ -3,13 +3,16 @@ import 'package:flutter_micro_interactions/features/features.dart';
 
 class Button extends StatefulWidget {
   const Button({
-    super.key, required this.title, required this.onPressed, required this.isSelected, required this.animation,
+    super.key,
+    required this.title,
+    required this.onPressed,
+    required this.isSelected,
   });
 
   final String title;
   final VoidCallback onPressed;
   final bool isSelected;
-  final Animation animation;
+
 
   @override
   State<Button> createState() => _ButtonState();

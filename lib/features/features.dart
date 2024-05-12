@@ -1,3 +1,3 @@
 export 'home/home.dart';
-export 'staggered_animation/staggered_animation.dart';
-export 'clock_animation/clock_animation.dart';
+export 'planner_app/planner_app.dart';
+export 'clock_app/clock_app.dart';

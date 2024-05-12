@@ -5,7 +5,7 @@ import 'package:flutter_micro_interactions/utils/utils.dart';
 
 
 class StaggeredAnimationScreen extends StatefulWidget {
-  const StaggeredAnimationScreen({Key? key}) : super(key: key);
+  const  StaggeredAnimationScreen({Key? key}) : super(key: key);
 
   @override
   State<StaggeredAnimationScreen> createState() => _StaggeredAnimationScreenState();

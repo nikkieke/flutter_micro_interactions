@@ -41,7 +41,8 @@ class _AnimationExecutorState extends State<AnimationExecutor> {
 
   Widget _slideAnimation(Animation<double>animation,){
     Animation<double> offsetAnimation(double offset, Animation<double> animation){
-      return Tween<double>(begin: widget.isFirstPage? -offset: offset, end: 0.0).animate(
+      return Tween<double>(
+          begin: widget.isFirstPage? -offset: offset, end: 0.0).animate(
         CurvedAnimation(
             parent: animation,
             curve: Interval(widget.begin, widget.end,
@@ -49,7 +50,8 @@ class _AnimationExecutorState extends State<AnimationExecutor> {
         )
       );
     }
-    return Transform.translate(offset: Offset(
+    return Transform.translate(
+      offset: Offset(
         widget.horizontalOffset==0.0? 0.0: offsetAnimation(widget.horizontalOffset, animation).value,
         widget.verticalOffset==0.0? 0.0: offsetAnimation(widget.verticalOffset, animation).value,
       ),

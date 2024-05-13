@@ -16,7 +16,6 @@ class ClockScreen extends StatefulWidget {
 class _ClockScreenState extends State<ClockScreen>
     with TickerProviderStateMixin {
   int selectedIndex = 0;
-  bool isIconTapped = true;
 
   late AnimationController _animationController;
   late Animation<double> _animation;
@@ -40,7 +39,7 @@ class _ClockScreenState extends State<ClockScreen>
       duration: const Duration(milliseconds: 200),
     );
 
-    ///add listener so that when the animation reaches the end, it reverses the widget
+    ///add listener so that when the animation reaches the end, it reverses
     ///to the start
     _animation = Tween(begin: 1.0, end: 0.9).animate(_animationController)
       ..addListener(() {
@@ -147,23 +146,9 @@ class _ClockScreenState extends State<ClockScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Transform.scale(
-                      scale: _secondAnimation.value,
-                      child: Button(
-                        title: 'LONDON',
-                        onPressed: () {
-                          handleButtonPress(0);
-                          _secondAnimationController.forward();
-                        },
-                        isSelected: selectedIndex == 0,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Transform.scale(
                       scale: _animation.value,
                       child: Button(
-                        title: 'NEW YORK',
+                        title: 'LONDON',
                         onPressed: () {
                           handleButtonPress(1);
                           _animationController.forward();
@@ -171,6 +156,21 @@ class _ClockScreenState extends State<ClockScreen>
                         isSelected: selectedIndex == 1,
                       ),
                     ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Transform.scale(
+                      scale: _secondAnimation.value,
+                      child: Button(
+                        title: 'NEW YORK',
+                        onPressed: () {
+                          handleButtonPress(0);
+                          _secondAnimationController.forward();
+                        },
+                        isSelected: selectedIndex == 0,
+                      ),
+                    ),
+
                   ],
                 ),
                 const SizedBox(

@@ -17,14 +17,17 @@ class ClockFace extends StatefulWidget {
 }
 
 class _ClockFaceState extends State<ClockFace> {
-
+  /// This is the default time
   DateTime currentDateAndTime = curDateTimeByZone(zone: 'GMT');
+  /// This is the timer that invokes a callback after every one second
+  /// with this we can mimick a clock that counts after every second
   late Timer _timer;
 
   @override
   void initState() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
+        ///Switches current time depending on which button is clicked
         widget.isLondonSelected == true?
         currentDateAndTime = curDateTimeByZone(zone: 'GMT'):
         currentDateAndTime = curDateTimeByZone(zone: 'EDT');
@@ -35,6 +38,7 @@ class _ClockFaceState extends State<ClockFace> {
 
   @override
   void dispose() {
+    /// disposes the timer to clean up resources and prevent performance issues
     _timer.cancel();
     super.dispose();
   }

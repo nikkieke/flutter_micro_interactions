@@ -63,6 +63,9 @@ class _RequestScreenState extends State<RequestScreen> {
                     itemCount: inProgressList.length,
                     itemBuilder: (context, index){
                       final pL = inProgressList[index];
+                      ///Here the AnimationExecutor widget wraps the
+                      ///RequestItemCard widget and the required parameters
+                      ///are passed to trigger the animation
                       return AnimationExecutor(
                           horizontalOffset: 15,
                           verticalOffset: 0.0,

@@ -29,18 +29,27 @@ class SideDrawer extends StatelessWidget {
                 children: [
                   ListTile(
                       leading: const Icon(Icons.arrow_drop_down_circle_outlined),
-                      title: const Text("Staggered Animation",style: TextStyle(
+                      title: const Text("Planner App",style: TextStyle(
                           color: Colors.white,  fontSize: 15)),
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder:(context)=> const StaggeredAnimationScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder:(context)=> const EntryScreen()));
                       }
                   ),
                   ListTile(
                       leading: const Icon(Icons.arrow_drop_down_circle_outlined),
-                      title: const Text("Clock Animation",style: TextStyle(
+                      title: const Text("Clock App",style: TextStyle(
                           color: Colors.white,  fontSize: 15)),
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder:(context)=> const EntryPoint()));
+                      }
+                  ),
+
+                  ListTile(
+                      leading: const Icon(Icons.arrow_drop_down_circle_outlined),
+                      title: const Text("Staggered Animation",style: TextStyle(
+                          color: Colors.white,  fontSize: 15)),
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder:(context)=> const StaggeredAnimation()));
                       }
                   ),
 

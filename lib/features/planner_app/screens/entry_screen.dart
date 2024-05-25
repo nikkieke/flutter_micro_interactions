@@ -4,14 +4,14 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_micro_interactions/utils/utils.dart';
 
 
-class StaggeredAnimationScreen extends StatefulWidget {
-  const  StaggeredAnimationScreen({Key? key}) : super(key: key);
+class EntryScreen extends StatefulWidget {
+  const  EntryScreen({Key? key}) : super(key: key);
 
   @override
-  State<StaggeredAnimationScreen> createState() => _StaggeredAnimationScreenState();
+  State<EntryScreen> createState() => _EntryScreenScreenState();
 }
 
-class _StaggeredAnimationScreenState extends State<StaggeredAnimationScreen>
+class _EntryScreenScreenState extends State<EntryScreen>
     with AutomaticKeepAliveClientMixin, SingleTickerProviderStateMixin{
 
   @override

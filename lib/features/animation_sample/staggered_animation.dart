@@ -11,15 +11,8 @@ class StaggeredAnimation extends StatefulWidget {
   State<StaggeredAnimation> createState() => _StaggeredAnimationState();
 }
 
-class _StaggeredAnimationState extends State<StaggeredAnimation> with SingleTickerProviderStateMixin{
+class _StaggeredAnimationState extends State<StaggeredAnimation>{
   final controller = PageController(keepPage: true);
-
-
-  @override
-  void initState() {
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

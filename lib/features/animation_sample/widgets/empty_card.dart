@@ -6,7 +6,6 @@ class EmptyCard extends StatelessWidget {
   final double width;
   final double height;
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,7 +13,7 @@ class EmptyCard extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        color: Colors.grey.shade200,
+        color: Colors.blue.shade200,
         boxShadow: const [
           BoxShadow(
             color: Colors.black12,

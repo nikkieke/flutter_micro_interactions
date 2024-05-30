@@ -49,7 +49,7 @@ class SideDrawer extends StatelessWidget {
                       title: const Text("Staggered Animation",style: TextStyle(
                           color: Colors.white,  fontSize: 15)),
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder:(context)=> const StaggeredAnimation()));
+                        Navigator.push(context, MaterialPageRoute(builder:(context)=> const MainScreen()));
                       }
                   ),
 

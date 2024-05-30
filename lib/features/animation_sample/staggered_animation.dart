@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_micro_interactions/features/features.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class StaggeredAnimation extends StatefulWidget {
-  const StaggeredAnimation({super.key});
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
 
   @override
-  State<StaggeredAnimation> createState() => _StaggeredAnimationState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
-class _StaggeredAnimationState extends State<StaggeredAnimation>{
+class _MainScreenState extends State<MainScreen>{
   final controller = PageController(keepPage: true);
 
   @override
@@ -225,7 +225,6 @@ class _AnimateWidgetState extends State<AnimateWidget> with AutomaticKeepAliveCl
     animationController = AnimationController(vsync: this, duration: widget.duration);
     _timer = Timer(getDelay(), animationController.forward);
 
-
     widget.controller.addListener(() {
       currentPage = widget.controller.page!.round();
       if(currentPage == widget.controller.page){
@@ -265,11 +264,11 @@ class _AnimateWidgetState extends State<AnimateWidget> with AutomaticKeepAliveCl
     );
   }
 
-  Widget _slideAnimation(Animation<double> animation){
-    Animation<double> offsetAnimation(double offset, Animation<double> animation) {
+  Widget _slideAnimation(Animation<double> animationController){
+    Animation<double> offsetAnimation(double offset, Animation<double> animationController) {
       return Tween<double>(begin: offset, end: 0.0).animate(
         CurvedAnimation(
-          parent: animation,
+          parent: animationController,
           curve: const Interval(0.0, 1.0, curve: Curves.ease),
         ),
       );
@@ -277,7 +276,7 @@ class _AnimateWidgetState extends State<AnimateWidget> with AutomaticKeepAliveCl
 
     return Transform.translate(
       offset: Offset(
-        widget.horizontalOffset == 0.0 ? 0.0 : offsetAnimation(widget.horizontalOffset!, animation).value,
+        widget.horizontalOffset == 0.0 ? 0.0 : offsetAnimation(widget.horizontalOffset!, animationController).value,
         0.0,
       ),
       child: widget.child,

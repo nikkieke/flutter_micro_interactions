@@ -7,6 +7,7 @@ This repository showcases different examples of micro-interactivity implemented 
 	<tr>
 	<th>Planner App</th>
      	<th>Analog Clock app</th>
+	<th>Anmation sample 1: Staggered Animation</th>	
 		</tr>
 		<tr>
       			<td>
@@ -14,6 +15,9 @@ This repository showcases different examples of micro-interactivity implemented 
 			</td>
 	    		<td>
 			<img src="https://github.com/nikkieke/flutter_micro_interactions/assets/95222620/df3a44f3-f422-476c-b7fd-b54e7dcea534" alt="Analog clock app"></img>
+			</td>
+			<td>
+			<img src="https://github.com/nikkieke/flutter_micro_interactions/assets/95222620/a55ddfcc-accf-44b1-839b-8462b93817ff" alt="Anmation sample 1: Staggered Animation"></img>
 			</td>
 		</tr>
 		</tr>
